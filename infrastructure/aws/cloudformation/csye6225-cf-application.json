@@ -59,8 +59,8 @@
     "AttributeDefinitions" : [ {"AttributeName" : "id", "AttributeType" : "S"}],
     "KeySchema" : [ {"AttributeName" : "id", "KeyType" : "HASH"} ],
     "ProvisionedThroughput" : {
-   "ReadCapacityUnits" : 20000,
-   "WriteCapacityUnits" : 20000
+   "ReadCapacityUnits" : 5,
+   "WriteCapacityUnits" : 5
 }
   }
 },
