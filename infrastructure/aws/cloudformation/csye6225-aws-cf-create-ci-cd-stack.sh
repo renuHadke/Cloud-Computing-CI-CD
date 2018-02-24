@@ -5,7 +5,7 @@ stackname=$1
 
 domain=$(aws route53 list-hosted-zones --query HostedZones[0].Name --output text)
 trimdomain=${domain::-1}
-s3domain="web-app.$trimdomain"
+s3domain="code-deploy.$trimdomain"
 echo "S3 Domain: $s3domain"
 
 appname="csye6225CodeDeployApplication"
