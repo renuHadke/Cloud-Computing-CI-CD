@@ -16,14 +16,12 @@ after_success:
   - pwd
   - ls -ltr
   - mkdir codedeploy
-  - cp infrastructure/aws/codedeploy/*.sh .
-  - cp infrastructure/aws/codedeploy/*.yml .
-  - zip -r csye6225-spring2018-$TRAVIS_JOB_NUMBER.zip csye6225-spring2018 infrastructure/aws/codedeploy/appspec.yml >/dev/null 2>&1
-  - ls -al
-  - mv csye6225-spring2018-$TRAVIS_JOB_NUMBER.zip codedeploy/
-  - ls -al
-  - pwd
+  - cp ./csye6225-spring2018/infrastructure/aws/codedeploy/*.sh ./codedeploy/
+  - cp ./csye6225-spring2018/infrastructure/aws/codedeploy/*.yml ./codedeploy/
+  - cp -r ./csye6225-spring2018 ./codedeploy/
   - cd codedeploy
+  - zip -r csye6225-spring2018-$TRAVIS_JOB_NUMBER.zip csye6225-spring2018 .*.yml *.sh >/dev/null
+  - rm -rf csye6225-spring2018 *.yml *.sh
   - ls -al
   - pwd
   - cd ..
