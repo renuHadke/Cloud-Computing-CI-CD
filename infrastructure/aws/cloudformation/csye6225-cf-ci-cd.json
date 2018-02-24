@@ -6,6 +6,16 @@
       "Description" : "S3 Bucket Name",
       "Type" : "String"
 
+    },
+    "appname" : {
+      "Description" : "Application Name",
+      "Type" : "String"
+
+    },
+    "depname" : {
+      "Description" : "Deployment Group Name",
+      "Type" : "String"
+
     }
   },
   "Resources" : {
@@ -17,7 +27,8 @@
           {
             "Ref" : "EC2ToS3BucketRole"
           }
-        ]
+        ],
+        "InstanceProfileName":"EC2ToS3BucketInstanceProfile"
       }
     },
     "EC2ToS3BucketPolicy" : {
@@ -199,6 +210,23 @@
         "Path" : "/"
       }
     },
+    "CodeDeployServiceRole" : {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+              "ManagedPolicyArns" : ["arn:aws:iam::aws:policy/service-role/AWSCodeDeployRole"],
+              "AssumeRolePolicyDocument": {
+                "Version" : "2012-10-17",
+                "Statement": [ {
+                "Effect": "Allow",
+                "Principal": {
+                  "Service": [ "ec2.amazonaws.com" ]
+                  },
+                "Action": [ "sts:AssumeRole" ]
+                } ]
+              },
+          "RoleName": "CodeDeployServiceRole"
+          }
+        },
     "CodeDeployS3Bucket" : {
         "Type" : "AWS::S3::Bucket",
         "Properties" :
@@ -209,9 +237,21 @@
     "CodeDeployApplication": {
       "Type": "AWS::CodeDeploy::Application",
       "Properties": {
-        "ComputePlatform": "Lambda"
+        "ApplicationName" : {"Ref" : "appname"}
+      }
+    },
+    "CodeDeployDeploymentGroup": {
+      "Type": "AWS::CodeDeploy::DeploymentGroup",
+      "Properties": {
+        "ApplicationName" : {"Ref" : "appname"},
+        "EC2TagFilters" : [{
+          "Key" : "Name",
+          "Value" : "MyEC2Instance",
+          "Type" : "KEY_AND_VALUE"
+        }],
+        "ServiceRoleArn" : {"Fn::GetAtt" : ["CodeDeployServiceRole", "Arn"]},
+        "DeploymentGroupName" : {"Ref" : "depname"}
       }
     }
-  }
 }
-
+}
