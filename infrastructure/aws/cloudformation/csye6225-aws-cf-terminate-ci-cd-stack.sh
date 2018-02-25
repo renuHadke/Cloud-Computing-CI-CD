@@ -14,15 +14,15 @@ else
 	aws s3 rm s3://$s3domain --recursive
 	#Removing S3 bucket
 	aws s3 rb s3://$s3domain --force
-
+	#To make Travis insensitive
+	shopt -s nocasematch
 	testseq="Travis"
+
 	username=($(aws iam list-users --query "Users[*].UserName" --output text))
 	#echo $username
 
 	for j in  ${username[@]};
 	do
-		shopt -s nocasematch
-		#echo "$j"
 			if [[ $j == *"$testseq"* ]];
 				then
     			usr=$j
@@ -35,11 +35,10 @@ else
 	echo $arr
 	for i in  ${arr[@]};
 	do
-		#echo "$i"
 			if [[ $i == *"$testseq"* ]];
 				then
 				policy=$i
-				echo "Username inside policy if = $usr"
+				echo "Username = $usr"
 				echo "Policy = $policy"
 				aws iam detach-user-policy --user-name $usr --policy-arn $policy    			
 			fi
