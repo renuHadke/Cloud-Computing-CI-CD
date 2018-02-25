@@ -41,14 +41,14 @@ else
 				policy=$i
 				echo "Username inside policy if = $usr"
 				echo "Policy = $policy"
-				detach-user-policy --user-name $usr --policy-arn $policy    			
+				aws iam detach-user-policy --user-name $usr --policy-arn $policy    			
 			fi
 	done
 
 	terminateOutput=$(aws cloudformation delete-stack --stack-name $stackname)
 	if [ $? -eq 0 ]; then
 		echo "Deletion in progress..."
-		aws cloudformation wait stack-delete-complete --stack-name $stamckname
+		aws cloudformation wait stack-delete-complete --stack-name $stackname
 		echo $terminateOutput
 		echo "Deletion of stack successful"
 	else
