@@ -1,2 +1,7 @@
 /node_modules/*
+<<<<<<< HEAD
 /nodeapp-express/node_modules/*
+=======
+/*/node_modules
+/*/.env
+>>>>>>> b90399e83a906d4fbb8742dcfe2ffa3bb03aae61
