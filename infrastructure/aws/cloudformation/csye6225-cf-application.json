@@ -136,7 +136,9 @@
       "ReadCapacityUnits" : 2,
       "WriteCapacityUnits" : 2
     },
-
+    "TimeToLiveSpecification":{
+    "AttributeName" : "ttl",
+    "Enabled" : true
     },
     "TableName": {"Fn::Join" : ["",[{"Ref" : "stackname"},"-csye6225-dynamodb-table"]] }
   }
