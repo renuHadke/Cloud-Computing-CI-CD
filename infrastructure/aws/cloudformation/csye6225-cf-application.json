@@ -189,7 +189,6 @@
       "Subscription":[
         {
           "Endpoint":[{"Ref": "lambdaArn"}],
-          "Protocol":"sqs"
         },
       ]
     }
