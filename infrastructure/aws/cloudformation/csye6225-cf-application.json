@@ -110,7 +110,8 @@
                                 ]
                             ]
                         },
-                        
+                        "sudo echo [Unit] > /var/awslogs.service \n",
+                        "sudo echo Description=The CloudWatch Logs agent >> /var/awslogs.service \n",
                         "sudo echo After=rc-local.service >> /var/awslogs.service \n",
                         "sudo echo [Service] >> /var/awslogs.service \n",
                         "sudo echo Type=simple >> /var/awslogs.service \n",
