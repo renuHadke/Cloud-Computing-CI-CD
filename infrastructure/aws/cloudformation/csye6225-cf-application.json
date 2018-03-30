@@ -179,6 +179,21 @@
       }
   }
 },
+"MySNSTopic":{
+    "Type":"AWS::SNS::Topic",
+    "Properties":{
+      "Subscription":[
+        {
+          "Endpoint":{"Fn::GetAtt":["MyQueue1","Arn"]},
+          "Protocol":"sqs"
+        },
+        {
+          "Endpoint":{"Fn::GetAtt":["MyQueue2","Arn"]},
+          "Protocol":"sqs"
+        }
+      ]
+    }
+  },
 "Outputs": {
     "InstanceId": {
         "Description": "InstanceId of the newly created EC2 instance",
@@ -195,20 +210,5 @@
             ]
         }
     }
-  },
-  "MySNSTopic":{
-      "Type":"AWS::SNS::Topic",
-      "Properties":{
-        "Subscription":[
-          {
-            "Endpoint":{"Fn::GetAtt":["MyQueue1","Arn"]},
-            "Protocol":"sqs"
-          },
-          {
-            "Endpoint":{"Fn::GetAtt":["MyQueue2","Arn"]},
-            "Protocol":"sqs"
-          }
-        ]
-      }
-    },
+  }
 }
