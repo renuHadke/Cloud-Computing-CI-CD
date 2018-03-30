@@ -116,7 +116,7 @@
                         "sudo echo [Service] >> /var/awslogs.service \n",
                         "sudo echo Type=simple >> /var/awslogs.service \n",
                         "sudo echo Restart=always >> /var/awslogs.service \n",
-                        
+                        "sudo echo KillMode=process >> /var/awslogs.service \n",
                         "sudo echo TimeoutSec=infinity >> /var/awslogs.service \n",
                         "sudo echo PIDFile=/var/awslogs/state/awslogs.pid >> /var/awslogs.service \n",
                         "sudo echo ExecStart=/var/awslogs/bin/awslogs-agent-launcher.sh --start --background --pidfile $PIDFILE --user awslogs --chuid awslogs & >> /var/awslogs.service \n",
