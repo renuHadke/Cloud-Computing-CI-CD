@@ -23,8 +23,10 @@ domain=$(aws route53 list-hosted-zones --query HostedZones[0].Name --output text
 trimdomain=${domain::-1}
 s3domain="web-app.$trimdomain"
 echo "S3 Domain: $s3domain"
+lambdaArn=$(aws lambda get-function --function-name lambdaFn --query Configuration.FunctionArn --output text)
+echo "Lambda Arn: $lambdaArn"
 
-createOutput=$(aws cloudformation create-stack --stack-name $stackname --template-body file://csye6225-cf-application.json --parameters ParameterKey=stackname,ParameterValue=$stackname ParameterKey=dbsubnet,ParameterValue=$dbsubnet ParameterKey=s3domain,ParameterValue=$s3domain ParameterKey=ec2Subnet,ParameterValue=$subnet1 ParameterKey=ec2SecurityGroup,ParameterValue=$sgec2 ParameterKey=dbSecurityGroupId,ParameterValue=$sgdb ParameterKey=iaminstance,ParameterValue=$iaminstance)
+createOutput=$(aws cloudformation create-stack --stack-name $stackname --template-body file://csye6225-cf-application.json --parameters ParameterKey=stackname,ParameterValue=$stackname ParameterKey=dbsubnet,ParameterValue=$dbsubnet ParameterKey=s3domain,ParameterValue=$s3domain ParameterKey=ec2Subnet,ParameterValue=$subnet1 ParameterKey=ec2SecurityGroup,ParameterValue=$sgec2 ParameterKey=dbSecurityGroupId,ParameterValue=$sgdb ParameterKey=iaminstance,ParameterValue=$iaminstance ParameterKey=lambdaArn,ParameterValue=$lambdaArn )
 
 
 if [ $? -eq 0 ]; then
