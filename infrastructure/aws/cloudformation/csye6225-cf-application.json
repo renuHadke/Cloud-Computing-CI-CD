@@ -31,6 +31,10 @@
   "iaminstance" : {
     "Description" : "Instance Profile Name for CodeDeploy to S3",
     "Type" : "String"
+  },
+  "lambdaArn" : {
+    "Description" : "Lambda function Arn",
+    "Type" : "String"
   }
 },
 "Resources": {
@@ -184,13 +188,9 @@
     "Properties":{
       "Subscription":[
         {
-          "Endpoint":{"Fn::GetAtt":["MyQueue1","Arn"]},
+          "Endpoint":[{"Ref": "lambdaArn"}],
           "Protocol":"sqs"
         },
-        {
-          "Endpoint":{"Fn::GetAtt":["MyQueue2","Arn"]},
-          "Protocol":"sqs"
-        }
       ]
     }
   },
