@@ -4,7 +4,7 @@
   "Parameters" : {
     "s3domain" : {
       "Description" : "S3 Bucket Name",
-      "Type" : "String"
+      "Type" : "String" 
 
     },
     "appname" : {
